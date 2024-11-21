@@ -8,3 +8,26 @@ CREATE TABLE `riders` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+-- Table structure for order_updates
+CREATE TABLE `order_updates` (
+    `id` int(30) NOT NULL AUTO_INCREMENT,
+    `order_id` int(30) NOT NULL,
+    `status` varchar(50) NOT NULL,
+    `rider_id` int(30) DEFAULT NULL,
+    `update_type` varchar(50) NOT NULL COMMENT 'status_change, rider_assigned, delivery_update',
+    `remarks` text DEFAULT NULL,
+    `date_created` datetime NOT NULL DEFAULT current_timestamp(),
+    PRIMARY KEY (`id`),
+    KEY `order_id` (`order_id`),
+    KEY `rider_id` (`rider_id`),
+    CONSTRAINT `order_updates_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+    CONSTRAINT `order_updates_ibfk_2` FOREIGN KEY (`rider_id`) REFERENCES `riders` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Add delivery_status to orders table if not exists
+ALTER TABLE `orders` 
+ADD COLUMN `delivery_status` varchar(50) NOT NULL DEFAULT 'pending' 
+COMMENT 'pending, assigned, on_delivery, completed, cancelled';
