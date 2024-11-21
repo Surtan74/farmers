@@ -31,3 +31,14 @@ CREATE TABLE `order_updates` (
 ALTER TABLE `orders` 
 ADD COLUMN `delivery_status` varchar(50) NOT NULL DEFAULT 'pending' 
 COMMENT 'pending, assigned, on_delivery, completed, cancelled';
+
+
+
+-- Add rider_id column to orders table if not exists
+ALTER TABLE `orders` 
+ADD COLUMN `rider_id` int(30) DEFAULT NULL,
+ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`rider_id`) REFERENCES `riders` (`id`) ON DELETE SET NULL;
+
+-- Add delivery_status to orders if not exists
+ALTER TABLE `orders`
+ADD COLUMN `delivery_status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=Pending, 1=On Delivery, 2=Delivered';
