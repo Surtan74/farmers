@@ -16,7 +16,6 @@ $rider_id = $_SESSION['rider_rider_id'];
     <title>Rider Dashboard</title>
     <?php include('../admin/header.php') ?>
     <style>
-        /* Custom Styles */
         body {
             background-color: #f8f9fa;
             font-family: 'Poppins', sans-serif;
@@ -125,7 +124,6 @@ $rider_id = $_SESSION['rider_rider_id'];
             }
         }
 
-        /* Loading Animation */
         .loading {
             position: fixed;
             top: 0;
